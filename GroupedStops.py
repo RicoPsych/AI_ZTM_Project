@@ -3,7 +3,6 @@ from BusStop import BusStop, BusStops
 
 
 class GroupedStop:
-
     def __init__(self,stops: list[BusStop]) -> None:
         self._name = stops[0]._name
         self._stops = stops
@@ -21,17 +20,16 @@ class GroupedStops:
             if not self.containsName(stop._name):
                 self._stops.append(GroupedStop(busStops.get_name(stop._name)))
 
-    def getByName(self,name) -> GroupedStop:
-        for stop in self._stops:
-            if stop._name == name:
-                return stop
-        
-
     def containsName(self,name) -> bool:
         for stop in self._stops:
             if stop._name == name:
                 return True
         return False
+
+    def getByName(self,name) -> GroupedStop:
+        for stop in self._stops:
+            if stop._name == name:
+                return stop        
 
     def getByStop(self,busStop: BusStop) -> GroupedStop:
         for stop in self._stops:

@@ -58,14 +58,14 @@ class BusStops:
                 return self._list[id]
 
 
-    def getRoute_Names(self,route: list) -> list[BusStop]:
-        busStops = []
-        for stop_name in route:
-            if self.contains_name(stop_name):
-                busStops.append(self.get_name(stop_name))
-            else:
-                raise Exception("Bus Stop not in List")
-        return busStops
+    # def getRoute_Names(self,route: list) -> list[BusStop]:
+    #     busStops = []
+    #     for stop_name in route:
+    #         if self.contains_name(stop_name):
+    #             busStops.append(self.get_name(stop_name))
+    #         else:
+    #             raise Exception("Bus Stop not in List")
+    #     return busStops
 
     def getRoute_ID(self,route: list) -> list[BusStop]:
         busStops = []
@@ -75,7 +75,6 @@ class BusStops:
             else:
                 raise Exception("Bus Stop not in List")
         return busStops
-
 
     def closestStop(self,X,Y):
         distance = float('inf')

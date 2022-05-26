@@ -1,4 +1,3 @@
-import json
 import matplotlib.pyplot as pl 
 
 from LoadData import stops,routes

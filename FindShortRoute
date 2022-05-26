@@ -8,6 +8,10 @@ gstops = GroupedStops(stops)
 start = gstops.getByName("Harfowa")                        #stops.closestStop(x1,y1))
 end = gstops.getByName("Osowa PKP")                          #stops.closestStop(x2,y2))
 
+for stop in gstops._stops:
+    if len(stop._routes) == 0:
+        pass
+
 ShortestRoute = []
 
 rous = routes.get_Nr(210)
