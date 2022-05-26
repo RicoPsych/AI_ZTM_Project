@@ -1,5 +1,6 @@
 #groups stops by name
 from BusStop import BusStop, BusStops
+from Routes import Route
 
 
 class GroupedStop:
@@ -35,6 +36,20 @@ class GroupedStops:
         for stop in self._stops:
             if busStop in stop._stops :
                 return stop
+
+    def getOtherRoutes(self, busStops: list[BusStop]) -> list[Route]:
+        connected_routes = []
+        for stop in busStops:
+            #expand list with new routes
+            connected_routes = connected_routes + [x for x in self.getByStop(stop)._routes if x not in connected_routes]
+        return connected_routes    
+
+    def getCommonStops(self,route1,route2):
+        common_stops = []
+        for stop in route1._route:
+            if route2 in self.getByStop(stop)._routes:
+                common_stops.append(self.getByStop(stop))
+        return common_stops
 
     def printAll(self):
         for stop in self._stops:

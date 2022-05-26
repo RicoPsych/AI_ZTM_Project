@@ -37,7 +37,7 @@ class Route:
         if self not in otherRoute._other_routes:    return []
         else:                                       return [stop for stop in self._route if stop in otherRoute._route ]
     
-    def toStringNR(self):
+    def NR(self):
         txt = "Route nr: " + str(self._nr) + "\n"
         return txt
     def toString(self):
@@ -49,8 +49,13 @@ class Route:
             txt += str(route._nr) + "\n"
         return txt
 
-    def getStops(self) -> list[BusStop]:
+    def getRoute(self) -> list[BusStop]:
         return self._route
+    
+    def getRestOfRouteFromStop(self,stops: list[BusStop]) -> list[BusStop]:
+        for stop in stops:
+            if stop in self._route: 
+               return self._route[self._route.index(stop):] #get route from stop to end
 
 class Routes:
     def __init__(self) -> None:
