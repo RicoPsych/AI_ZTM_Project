@@ -1,0 +1,24 @@
+import matplotlib.pyplot as pl 
+
+from GroupedStops import GroupedStops
+from LoadData import stops,routes
+
+x1 =18
+y1 = 54
+x2 = 18.1
+y2= 54.1
+gstops = GroupedStops(stops)
+start = gstops.getByName("Harfowa")                        #stops.closestStop(x1,y1))
+end = gstops.getByName("Osowa PKP")                          #stops.closestStop(x2,y2))
+
+ShortestRoute = []
+
+connected_routes = start._routes
+for route in connected_routes:
+    if any(x in route._route for x in end._stops):
+        ShortestRoute.append(route)
+
+print(ShortestRoute)
+
+
+pass

@@ -9,6 +9,7 @@ class Route:
     def __init__(self,route_dict: dict) -> None :  
         self._nr = route_dict["Nr"]
         self._id = route_dict["ID"]
+        self._direction = route_dict["Direction"]
         self._route = route_dict["Route"]
         self._other_routes = []
         self.addRouteToBusStop()
@@ -43,7 +44,9 @@ class Route:
         for route in self._other_routes:
             txt += str(route._nr) + "\n"
         return txt
-    
+
+    def getStops(self) -> list[BusStop]:
+        return self._route
 
 class Routes:
     def __init__(self) -> None:
@@ -51,15 +54,14 @@ class Routes:
 
     def add(self,route_dict: dict):
         # #test
-        # if self.contains_NR(route_dict["Nr"]):
-        #     new_trip = Route(route_dict)
-        #     existing_trip = self.get_Nr(route_dict["Nr"]).pop()
-        #     if len(new_trip._route) > len(existing_trip._route):
-        #         self._list.remove(existing_trip)
-        #         self._list.append(new_trip)       
+        if self.contains_NR(route_dict["Nr"]):
+            new_trip = Route(route_dict)
+            existing_trip = self.get_Nr(route_dict["Nr"]).pop()
+            if len(new_trip._route) > len(existing_trip._route):
+                self._list.remove(existing_trip)
+                self._list.append(new_trip)       
         #test
-        #el
-        if not ( self.contains(route_dict["Nr"],route_dict["ID"]) ): #and self.contains_NR(route_dict["Nr"])):
+        elif not ( self.contains(route_dict["Nr"],route_dict["ID"]) ):
             self._list.append(Route(route_dict))
 
     def addList(self,routes_dict: list):

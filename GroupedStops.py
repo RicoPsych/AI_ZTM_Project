@@ -21,6 +21,11 @@ class GroupedStops:
             if not self.containsName(stop._name):
                 self._stops.append(GroupedStop(busStops.get_name(stop._name)))
 
+    def getByName(self,name) -> GroupedStop:
+        for stop in self._stops:
+            if stop._name == name:
+                return stop
+        
 
     def containsName(self,name) -> bool:
         for stop in self._stops:
@@ -28,9 +33,9 @@ class GroupedStops:
                 return True
         return False
 
-    def getGroup(self,busStop: BusStop) -> GroupedStop:
+    def getByStop(self,busStop: BusStop) -> GroupedStop:
         for stop in self._stops:
-            if stop._stops.contains(busStop):
+            if busStop in stop._stops :
                 return stop
 
     def printAll(self):
