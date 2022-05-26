@@ -1,6 +1,6 @@
 #Route and Routes Classes
 
-from BusStop import BusStop 
+from BusStop import BusStop, BusStops 
 
 class Route:
     pass
@@ -10,8 +10,12 @@ class Route:
         self._nr = route_dict["Nr"]
         self._id = route_dict["ID"]
         self._direction = route_dict["Direction"]
-        self._route = route_dict["Route"]
+        self._route = route_dict["Route"] #ID's of Bus stops
         self._other_routes = []
+        #connectToBusStops
+
+    def connectToBusStops(self,busStops: BusStops):
+        self._route = busStops.getRoute_ID(self._route) #change ID's to reference to BusStops
         self.addRouteToBusStop()
         self.setConnectedRoutes()
 
@@ -53,20 +57,27 @@ class Routes:
         self._list = []
 
     def add(self,route_dict: dict):
-        # #test
+        # #test----------------------------------------------------------------------------------------
         if self.contains_NR(route_dict["Nr"]):
-            new_trip = Route(route_dict)
-            existing_trip = self.get_Nr(route_dict["Nr"]).pop()
-            if len(new_trip._route) > len(existing_trip._route):
-                self._list.remove(existing_trip)
-                self._list.append(new_trip)       
-        #test
+            if not self.contains_NR_Direction(route_dict["Nr"],route_dict["Direction"]):
+                self._list.append(Route(route_dict))
+            else:
+                new_trip = Route(route_dict)
+                for existing_trip in self.get_Nr(route_dict["Nr"]):
+                    #if direction equal check length
+                    if new_trip._direction == existing_trip._direction: 
+                        if len(new_trip._route) > len(existing_trip._route):
+                            self._list.remove(existing_trip)
+                            self._list.append(new_trip)       
+        # #test----------------------------------------------------------------------------------------
         elif not ( self.contains(route_dict["Nr"],route_dict["ID"]) ):
             self._list.append(Route(route_dict))
 
-    def addList(self,routes_dict: list):
+    def addList(self,routes_dict: list,busStops: BusStops):
         for route_dict in routes_dict:
             self.add(route_dict)
+        for route in self._list:
+            route.connectToBusStops(busStops)
 
     def contains(self,route_nr,route_id) -> bool:
         for route in self._list:
@@ -80,6 +91,13 @@ class Routes:
                 return True
         return False
 
+    def contains_NR_Direction(self,route_nr,direction) -> bool:
+        for route in self._list:
+            if route_nr == route._nr and direction == route._direction:
+                return True
+        return False
+
+
     def contains_ID(self,route_id) -> bool:
         for route in self._list:
             if route_id == route._id:
@@ -92,6 +110,14 @@ class Routes:
             if route_Nr == self._list[id]._nr:
                 trips.append(self._list[id])
         return trips
+
+    def get_Nr_Direction(self,route_Nr,direction) -> list[Route]:
+        trips = []   
+        for id in range(len(self._list)):
+            if route_Nr == self._list[id]._nr and direction == self._list[id]._direction:
+                trips.append(self._list[id])
+        return trips
+
 
     def get_ID(self,route_ID) -> Route:   
         for id in range(len(self._list)):

@@ -19,6 +19,7 @@ for route in unconverted_trips:
     routes.append({ 
         "Nr":route["Nr"],
         "ID":int(route["ID"]) , 
+        "Direction":route["Direction"],
         "Route": route["Route"]
         })
 

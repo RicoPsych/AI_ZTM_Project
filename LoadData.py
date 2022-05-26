@@ -15,7 +15,4 @@ routes = Routes()
 
 stops.addList(stops_dict)
 
-for x in routes_dict:
-    x["Route"] = stops.getRoute_ID(x["Route"])
-
-routes.addList(routes_dict)
+routes.addList(routes_dict,stops)

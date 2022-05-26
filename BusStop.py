@@ -25,7 +25,7 @@ class BusStops:
         self._list = []
 
     def add(self,stop_dict: dict):
-        if not (self.contains_name(stop_dict["Name"]) and self.contains_ID(stop_dict["ID"])): #ID?
+        if not (self.contains_name(stop_dict["Name"]) and self.contains_ID(stop_dict["ID"])): 
             self._list.append(BusStop(stop_dict))
 
     def addList(self,route_dict: list):
