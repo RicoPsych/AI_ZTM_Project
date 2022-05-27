@@ -57,6 +57,17 @@ class Route:
             if stop in self._route: 
                return self._route[self._route.index(stop):] #get route from stop to end
 
+    def getPartOfRoute(self,stops1: list[BusStop],stops2: list[BusStop]):
+        for stop in stops1:
+            if stop in self._route:
+                stop1 = stop
+                break
+        for stop in stops2:
+            if stop in self._route: 
+                stop2 = stop
+                break
+        return self._route[self._route.index(stop1) : self._route.index(stop2)+1]
+
 class Routes:
     def __init__(self) -> None:
         self._list = []
