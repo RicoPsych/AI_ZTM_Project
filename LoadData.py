@@ -13,6 +13,7 @@ with open('routes.json', 'r') as fp:
 stops = BusStops()
 routes = Routes()
 
+#load stops
 stops.addList(stops_dict)
-
+#load routes and connect them to stops
 routes.addList(routes_dict,stops)

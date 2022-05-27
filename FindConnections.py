@@ -2,8 +2,13 @@ from copy import copy
 from GroupedStops import GroupedStops
 
 from Routes import Route
-
+#DFS
 def startSearch(start,end,limit,gstops: GroupedStops):
+    """Search for all paths between two stops
+       :start,end - starting and ending stop
+       :limit - limit for routes in path
+       :gstops - GroupedStops - contains list of grouped BusStops
+    """
     paths = []
     connected_routes = start._routes    
     for route in connected_routes:
@@ -22,6 +27,15 @@ def startSearch(start,end,limit,gstops: GroupedStops):
     return paths
 
 def GetPath(paths,path, prev_route, routes, end, limit, gstops: GroupedStops):
+    """Recursive search for path
+       :paths - list of all found paths
+       :path  - current path, contains Routes
+       :prev_route - previous found route
+       :routes - list of next routes to research for end stop
+       :end - end stop
+       :limit - limit for size of path, how many routes in path
+       :gstops - GroupedStops - contains list of grouped BusStops
+    """
     if len(path)>= limit:
         return
     for route in routes:

@@ -16,6 +16,7 @@ routesList = Routes()
 #-----------------------------example route
 # route = {
 #     "Nr":"r1" ,
+#     "Direction":1,
 #     "ID": 132131, 
 #     "Route": busStopsList.getRoute_Names(["1","2","3","4","5"])
 # }
@@ -71,23 +72,27 @@ busStopsList.addList(busstops)
 
 testroutes = [{
     "Nr":"r1" ,
-    "ID": 1, 
-    "Route": busStopsList.getRoute_Names(["1","2","3","4","5"])},
+    "ID": 1,
+    "Direction":1, 
+    "Route": [1,2,3,4,5]}, #busStopsList.getRoute_Names(["1","2","3","4","5"])},
     {
     "Nr":"r2" ,
     "ID": 2, 
-    "Route": busStopsList.getRoute_Names(["1","5","6"])},
+    "Direction":1,
+    "Route": [1,5,6]},#busStopsList.getRoute_Names(["1","5","6"])},
     {
     "Nr":"r3" ,
     "ID": 3, 
-    "Route": busStopsList.getRoute_Names(["6","7"])},
+    "Direction":1,
+    "Route": [6,7]},# busStopsList.getRoute_Names(["6","7"])},
     {
     "Nr":"r4" ,
     "ID": 4, 
-    "Route": busStopsList.getRoute_ID([2,4])}
+    "Direction":1,
+    "Route": [2,4]}#busStopsList.getRoute_ID([2,4])}
     ]
 
-routesList.addList(testroutes)
+routesList.addList(testroutes,busStopsList)
 
 routesList.printRoutes()
 

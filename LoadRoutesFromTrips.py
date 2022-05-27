@@ -16,6 +16,7 @@ date=datetime.now().strftime("%Y-%m-%d")
 trips_url = "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/b15bb11c-7e06-4685-964e-3db7775f912f/download/trips.json"
 #stops in trips
 stops_in_trips = "https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/3115d29d-b763-4af5-93f6-763b835967d6/download/stopsintrip.json"
+
 r =  requests.get(trips_url, allow_redirects=True)
 r2 = requests.get(stops_in_trips, allow_redirects=True)
 trips = r.json()[date]["trips"]
@@ -23,7 +24,7 @@ trip_stops =  r2.json()[date]["stopsInTrip"]
 
 
 trips_list= []
-
+#connect trips with stops in correct sequence
 for trip in trips:
     route_dict = {}
     route = []
