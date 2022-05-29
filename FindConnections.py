@@ -24,6 +24,9 @@ def startSearch(start,end,limit,gstops: GroupedStops):
         common_routes = gstops.getOtherRoutes(rest_of_route)
         common_routes = [x for x in common_routes if x not in path]
         GetPath(paths,path,route,common_routes,end,limit ,gstops)
+        #if hadnt found any routes
+    if len(paths) == 0: 
+        return startSearch(start,end,limit+1,gstops)
     return paths
 
 def GetPath(paths,path, prev_route, routes, end, limit, gstops: GroupedStops):

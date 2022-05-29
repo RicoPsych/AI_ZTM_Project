@@ -1,5 +1,6 @@
 #Route and Routes Classes
 
+from math import sqrt
 from BusStop import BusStop, BusStops 
 
 class Route:
@@ -79,6 +80,20 @@ class Route:
                 stop2 = stop
                 break
         return self._route[self._route.index(stop1) : self._route.index(stop2)+1]
+    ##-------------------------------------------------------------------------------------TODO
+    def getLength(self,stops1: list[BusStop] = 0, stops2 : list[BusStop] = 0):
+        """Calculate length of route"""
+        if stops1 == 0:
+            stops1 = [self._route[0]]
+        if stops2 == 0:
+            stops2 = [self._route[-1]]
+        route = self.getPartOfRoute(stops1,stops2)
+        length = 0
+        for id in range(1,len(route)):
+            x = (route[id-1]._X - route[id]._X)
+            y = (route[id-1]._Y - route[id]._Y)
+            length += sqrt(x*x + y*y) 
+        return length * 111.139
 
 class Routes:
     def __init__(self) -> None:
@@ -86,7 +101,7 @@ class Routes:
 
     def add(self,route_dict: dict):
         """Add route from dictionary to list"""
-        # #test----------------------------------------------------------------------------------------
+        # #test---------------------------------------------------------------------------------------- 
         if self.contains_NR(route_dict["Nr"]):
             if not self.contains_NR_Direction(route_dict["Nr"],route_dict["Direction"]):
                 self._list.append(Route(route_dict))
