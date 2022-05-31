@@ -7,7 +7,8 @@ from LoadRoutesFromTrips import trips_list as unconverted_trips
 stops = []
 for stop in unconverted_stops:
     stops.append({
-    "Name":stop["stopName"],
+                #stopName
+    "Name":stop["stopDesc"],
     "X": stop["stopLon"],
     "Y": stop["stopLat"],
     "ID": stop["stopId"]

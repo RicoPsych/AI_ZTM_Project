@@ -10,7 +10,7 @@ from Routes import Route
 
 gstops = GroupedStops(stops)
 start = gstops.getByName("Damroki")                        #stops.closestStop(x1,y1))
-end = gstops.getByName("Pomorska")                          #stops.closestStop(x2,y2))
+end = gstops.getByName("Sobieszewo")                          #stops.closestStop(x2,y2))
 
 
 Paths = startSearch(start,end,0,gstops)
