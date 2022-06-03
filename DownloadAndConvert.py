@@ -15,14 +15,14 @@ for stop in unconverted_stops:
     })
 
 #convert routes from ZTM to Routes data type
-routes = []
-for route in unconverted_trips:
-    routes.append({ 
-        "Nr":route["Nr"],
-        "ID":int(route["ID"]) , 
-        "Direction":route["Direction"],
-        "Route": route["Route"]
-        })
+routes = unconverted_trips #[]
+# for route in unconverted_trips:
+#     routes.append({ 
+#         "Nr":route["Nr"],
+#         "ID":int(route["ID"]) , 
+#         "Direction":route["Direction"],
+#         "Route": route["Route"]
+#         })
 
 
 #save stops and routes to json 
