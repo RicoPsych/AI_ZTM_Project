@@ -46,9 +46,6 @@ def GetPath(paths, path, prev_route: Route, routes : list[Route], previous_stop 
     if len(path)>= limit:
         return
     
-    #debug!
-    if prev_route._nr == 210:
-        pass
     #Heuristic   
     routes.sort(key=lambda route: Heuristic(route,prev_route , previous_stop ,gstops.getCommonStops(prev_route,route).pop(),end))
 
@@ -92,4 +89,4 @@ def Heuristic(route: Route,prev_route: Route,prev_stop:GroupedStop,stop:GroupedS
         x += 5000
     if any(x in rest_of_route for x in end._stops):
         x += -2000
-    return  (stop.distanceFrom(end) - prev_stop.distanceFrom(end))* length + x 
+    return  ((stop.distanceFrom(end) - prev_stop.distanceFrom(end))* length + x )

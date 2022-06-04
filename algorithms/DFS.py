@@ -14,16 +14,19 @@ def startSearch(start,end,limit,gstops: GroupedStops):
     for route in connected_routes:
         path = []
         path.append(route)
+
+        if Exclude(route):
+            continue
+
         #if route connected with end stop
-
         rest_of_route = route.getRestOfRouteFromStop(start._stops)
-
         if any(x in rest_of_route for x in end._stops):
             paths.append(path)
             continue
         common_routes = gstops.getOtherRoutes(rest_of_route)
         common_routes = [x for x in common_routes if x not in path]
         GetPath(paths,path,route,common_routes,end,limit ,gstops)
+
         #if didnt find any routes raise limit
     if len(paths) == 0: 
         return startSearch(start,end,limit+1,gstops)
@@ -45,17 +48,23 @@ def GetPath(paths,path, prev_route, routes, end, limit, gstops: GroupedStops):
         route: Route
         path_c = copy(path)
         path_c.append(route)
-        #if route connected with end stop
 
-        #else
+        if Exclude(route):
+            continue
+
+
         common_stops = gstops.getCommonStops(prev_route,route)# get common stop in route with prev_route
         stop = common_stops.pop() #get last common stop in both routes
-        rest_of_route = route.getRestOfRouteFromStop(stop._stops)
-
+        rest_of_route = route.getRestOfRouteFromStop(stop._stops)#get rest of this route
+        #if route connected with end stop
         if any(x in rest_of_route for x in end._stops):
             paths.append(path_c)
             continue
 
+        #else get routes that are connected to rest of this route
         common_routes = gstops.getOtherRoutes(rest_of_route)
         common_routes = [x for x in common_routes if x not in path_c]
         GetPath(paths,path_c, route ,common_routes,end,limit,gstops)
+
+def Exclude(route) -> bool:
+    return route._nr >= 400 and route._nr < 500

@@ -12,7 +12,6 @@ from load.LoadData import stops,routes
 #         for stop in trip.getCommonStops(route):
 #             print(stop.toString())
 
-#Domeyki ????
 Graph = GroupedStops(stops)
 Graph.printAll()
 start_stop = Graph.getGroup(stops.closestStop(18,54)[0])
