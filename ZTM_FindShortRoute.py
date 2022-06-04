@@ -11,7 +11,7 @@ from base.Routes import Route
 
 gstops = GroupedStops(stops)
 start = gstops.getByName("Osowa PKP")                        #stops.closestStop(x1,y1))
-end = gstops.getByName("Zakoniczyn")                          #stops.closestStop(x2,y2))
+end = gstops.getByName("Wrzeszcz PKP")                          #stops.closestStop(x2,y2))
 
 
 Paths = startSearch(start,end,1,gstops)
