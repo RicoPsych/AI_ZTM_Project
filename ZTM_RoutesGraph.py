@@ -1,7 +1,7 @@
 import matplotlib.pyplot as pl 
 
-from GroupedStops import GroupedStops
-from LoadData import stops,routes
+from base.GroupedStops import GroupedStops
+from load.LoadData import stops,routes
 
 # for trip in routes.get_Nr(10):
 #     for route in routes.get_Nr(148):

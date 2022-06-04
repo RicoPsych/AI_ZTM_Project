@@ -1,7 +1,7 @@
 #converts stops and routes from ZTM DB and saves to json files
 import json
-from LoadStops import stops as unconverted_stops
-from LoadRoutesFromTrips import trips_list as unconverted_trips
+from download.LoadStops import stops as unconverted_stops
+from download.LoadRoutesFromTrips import trips_list as unconverted_trips
 
 #convert stops from ZTM to BusStop data type
 stops = []
@@ -26,8 +26,8 @@ routes = unconverted_trips #[]
 
 
 #save stops and routes to json 
-with open("stops.json","w") as fp:
+with open("resources/stops.json","w") as fp:
     json.dump(stops,fp)
 
-with open("routes.json","w") as fp:
+with open("resources/routes.json","w") as fp:
     json.dump(routes,fp)

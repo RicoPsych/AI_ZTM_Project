@@ -2,7 +2,7 @@ from asyncio.windows_events import NULL
 from datetime import datetime
 import requests
 
-from LoadStops import stops 
+from download.LoadStops import stops 
 
 #Routes
 #gets ids of all stops

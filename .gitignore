@@ -1,4 +1,3 @@
-routes.json
-stops.json
-trasa.png
 __pycache__
+resources
+graph.dot

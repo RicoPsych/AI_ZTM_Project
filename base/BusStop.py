@@ -26,12 +26,12 @@ class BusStops:
     def __init__(self) -> None:
         self._list = []
 
-    def add(self,stop_dict: dict):
+    def add(self,stop_dict: dict) -> None:
         """Add new BusStop to list if it doesn't contain it"""
         if not (self.contains_name(stop_dict["Name"]) and self.contains_ID(stop_dict["ID"])): 
             self._list.append(BusStop(stop_dict))
 
-    def addList(self,stops_dict: list):
+    def addList(self,stops_dict: list) -> None:
         """Add List of BusStops from list of Dictionaries"""
         for stop_dict in stops_dict:
             self.add(stop_dict)
@@ -86,7 +86,7 @@ class BusStops:
                 raise Exception("Bus Stop not in List")
         return busStops
 
-    def closestStop(self,X,Y):
+    def closestStop(self,X,Y) -> BusStop and float:
         """Find closest stop from list to given coordinates"""
         distance = float('inf')
         closest_stop = 0
@@ -97,7 +97,7 @@ class BusStops:
                 distance = new_distance
         return closest_stop , distance
 
-    def printBusStops(self):
+    def printBusStops(self) -> None:
         """Print all bus stops to console"""
         for stop in self._list:
             print(stop.toString())

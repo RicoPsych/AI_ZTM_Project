@@ -1,6 +1,7 @@
 #groups stops by name
-from BusStop import BusStop, BusStops
-from Routes import Route
+from math import sqrt
+from base.BusStop import BusStop, BusStops
+from base.Routes import Route
 
 
 class GroupedStop:
@@ -13,8 +14,24 @@ class GroupedStop:
             for route in stop._routes:
                 if route not in self._routes:
                     self._routes.append(route)
-                    
 
+    def getAvgCoords(self) -> float:
+        """Get Average Coordinates of this GroupedStop"""
+        x = 0
+        y = 0
+        for stop in self._stops:
+            x+=stop._X
+            y+=stop._Y
+        avgX = x/len(self._stops)
+        avgY = y/len(self._stops)    
+        return avgX,avgY
+
+    def distanceFrom(self, otherStop) -> float:
+        """Get Distance from Other Grouped Stop"""
+        self_x,self_y = self.getAvgCoords()
+        other_x,other_y = otherStop.getAvgCoords()
+        return sqrt(pow(self_x-other_x,2)+ pow(self_y-other_y,2))
+ 
 class GroupedStops:
     def __init__(self,busStops: BusStops) -> None:
         """Group BusStops By name"""
@@ -50,7 +67,7 @@ class GroupedStops:
             connected_routes = connected_routes + [x for x in self.getByStop(stop)._routes if x not in connected_routes]
         return connected_routes    
 
-    def getCommonStops(self,route1,route2):
+    def getCommonStops(self,route1,route2) -> list[GroupedStop]:
         """Get list of common stops of 2 given routes"""
         common_stops = []
         for stop in route1._route:
@@ -58,7 +75,7 @@ class GroupedStops:
                 common_stops.append(self.getByStop(stop))
         return common_stops
 
-    def printAll(self):
+    def printAll(self) -> None:
         """Print all groupes of stops with connected routes"""
         for stop in self._stops:
             txt ="" + stop._name+" : "

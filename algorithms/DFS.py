@@ -1,7 +1,7 @@
 from copy import copy
-from GroupedStops import GroupedStops
+from base.GroupedStops import GroupedStops
 
-from Routes import Route
+from base.Routes import Route
 #DFS
 def startSearch(start,end,limit,gstops: GroupedStops):
     """Search for all paths between two stops
@@ -24,7 +24,7 @@ def startSearch(start,end,limit,gstops: GroupedStops):
         common_routes = gstops.getOtherRoutes(rest_of_route)
         common_routes = [x for x in common_routes if x not in path]
         GetPath(paths,path,route,common_routes,end,limit ,gstops)
-        #if hadnt found any routes
+        #if didnt find any routes raise limit
     if len(paths) == 0: 
         return startSearch(start,end,limit+1,gstops)
     return paths

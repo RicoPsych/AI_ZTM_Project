@@ -1,7 +1,8 @@
 #Route and Routes Classes
 
 from math import sqrt
-from BusStop import BusStop, BusStops 
+import string
+from base.BusStop import BusStop, BusStops 
 
 class Route:
     pass
@@ -44,10 +45,9 @@ class Route:
         if self not in otherRoute._other_routes:    return []
         else:                                       return [stop for stop in self._route if stop in otherRoute._route ]
     
-    def NR(self):
-        """Return Route NR"""
-        txt = "Route nr: " + str(self._nr) + "\n"
-        return txt
+    def NR(self) -> string:
+        """Return Route NR as String"""
+        return str(self._nr)
 
     def toString(self):
         """To string"""

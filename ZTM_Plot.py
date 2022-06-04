@@ -1,6 +1,6 @@
 import matplotlib.pyplot as pl 
 
-from LoadData import stops,routes
+from load.LoadData import stops,routes
 
 pl.figure(figsize=(192, 108), dpi=100)
 x = []
