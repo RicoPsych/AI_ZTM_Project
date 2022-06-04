@@ -1,7 +1,7 @@
 from time import time
 import matplotlib.pyplot as pl
-#from Astar import startSearch
-from algorithms.DFS import startSearch  
+from algorithms.Astar import startSearch
+#from algorithms.DFS import startSearch  
 from base.GroupedStops import GroupedStops
 
 from load.LoadData import stops,routes
@@ -10,8 +10,8 @@ from base.Routes import Route
 
 
 gstops = GroupedStops(stops)
-start = gstops.getByName("Harfowa")                        #stops.closestStop(x1,y1))
-end = gstops.getByName("Dworzec Główny")                          #stops.closestStop(x2,y2))
+start = gstops.getByName("Osowa PKP")                        #stops.closestStop(x1,y1))
+end = gstops.getByName("Zakoniczyn")                          #stops.closestStop(x2,y2))
 
 
 Paths = startSearch(start,end,1,gstops)
@@ -19,8 +19,8 @@ Paths = startSearch(start,end,1,gstops)
 img = pl.imread('resources/map.png')
 pl.imshow(img,extent=[18.34,18.95,54.25,54.49])
 
-x =[]
-y= []
+x = []
+y = []
 for stop in stops._list:
     x.append(stop._X)
     y.append(stop._Y)    
@@ -54,14 +54,14 @@ for route in Paths:
 
         prev_route = rt
     print(length)
-    pl.show()
+#pl.show()
 
 txt="digraph D {\""+start._name+"\", \""+end._name+"\" [shape=diamond]\n"
 for path in Paths:
-    txt+="\""+start._name+"\" -> "
+    txt += "\"" + start._name + "\" -> "
     for route in path:
-        txt+=route.NR() + " -> "
-    txt+="\""+end._name +"\"\n"
+        txt += route.NR() + " -> "
+    txt += "\"" + end._name + "\"\n"
 txt+="}"
 graph = open("graph.dot","w")
 graph.write(txt)    

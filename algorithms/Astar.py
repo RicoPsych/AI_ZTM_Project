@@ -45,10 +45,12 @@ def GetPath(paths, path, prev_route: Route, routes : list[Route], previous_stop 
     """
     if len(path)>= limit:
         return
-
-
+    
+    #debug!
+    if prev_route._nr == 210:
+        pass
     #Heuristic   
-    routes.sort(key=lambda route: Heuristic(prev_route , previous_stop ,gstops.getCommonStops(prev_route,route).pop(),end))
+    routes.sort(key=lambda route: Heuristic(route,prev_route , previous_stop ,gstops.getCommonStops(prev_route,route).pop(),end))
 
     for route in routes[0:min(3,len(routes))]:
         path_c = copy(path)
@@ -57,25 +59,37 @@ def GetPath(paths, path, prev_route: Route, routes : list[Route], previous_stop 
 
         common_stops = gstops.getCommonStops(prev_route,route)# get common stop in route with prev_route
         stop = common_stops.pop() #get last common stop in both routes
-        
-
         rest_of_route = route.getRestOfRouteFromStop(stop._stops) #get rest of this route
         #if route connected with end stop
-        if Exclude(route):
-            continue
         if any(x in rest_of_route for x in end._stops):
             paths.append(path_c)
             continue
         
         #else get routes that are connected to rest of this route
         common_routes = gstops.getOtherRoutes(rest_of_route)
-        common_routes = [x for x in common_routes if x not in path_c]
+        rt = []
+        for x in common_routes: 
+            is_in = False
+            for p in path_c:
+                if x._nr == p._nr:
+                    is_in = True
+                    break
+            if not is_in and not Exclude(x):
+                rt.append(x)
+        common_routes = rt
         GetPath(paths,path_c, route ,common_routes, stop ,end,limit,gstops)
 
 #exclude night buses
 def Exclude(route) -> bool:
     return route._nr >= 400 and route._nr < 500
 
-def Heuristic(route: Route,prev_stop,stop,end) -> float:
+def Heuristic(route: Route,prev_route: Route,prev_stop:GroupedStop,stop:GroupedStop,end:GroupedStop) -> float:
+    rest_of_route = route.getRestOfRouteFromStop(stop._stops)
     
-    return route.getLength(prev_stop._stops,stop._stops) + (stop.distanceFrom(end) - prev_stop.distanceFrom(end))*3
+    length = prev_route.getLength(prev_stop._stops,stop._stops) # len(prev_route.getPartOfRoute(prev_stop._stops,stop._stops)) #
+    x = 0
+    if Exclude(route):
+        x += 5000
+    if any(x in rest_of_route for x in end._stops):
+        x += -2000
+    return  (stop.distanceFrom(end) - prev_stop.distanceFrom(end))* length + x 
