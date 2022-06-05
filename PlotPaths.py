@@ -2,7 +2,7 @@ import matplotlib.pyplot as pl
 from base.Routes import Route
 from load.LoadData import stops
 
-def CreateGraph(Paths,start,end,gstops):
+def CreateGraph(Paths,start,end,gstops,graph_stops=False):
     txt="digraph Paths {\""+start._name+"\", \""+end._name+"\" [shape=diamond]\n"
     for path in Paths:
 
@@ -11,9 +11,9 @@ def CreateGraph(Paths,start,end,gstops):
         txt += "\"" + start._name + "\" -> "
         for route in path:
             txt += route.NR() + " -> "
-            if path.index(route) < len(path)-1:
+            if graph_stops and path.index(route) < len(path)-1:
                 next_stop = gstops.getCommonStops(route,path[path.index(route)+1]).pop()
-                txt+= "\""+next_stop._name+"\" -> "
+                txt+= "{\""+next_stop._name+"\"[shape=diamond]} -> "
         
         txt += "\"" + end._name + "\"\n"
     txt+="}"

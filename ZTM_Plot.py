@@ -10,16 +10,19 @@ for stop in stops._list:
     y.append(stop._Y)
     #pl.annotate(stop._name,(stop._X,stop._Y))    
 pl.plot(x,y,"bo")
+img = pl.imread('resources/map.png')
+pl.imshow(img,extent=[18.34,18.95,54.25,54.49])
 
-# nr = 0
-# while nr != "q": 
-#     nr = input("Wpisz nr Lini:\n")
-#     if not routes.contains_NR(int(nr)):
-#         continue
-#     routes_list = routes.get_Nr(int(nr))
+
+nr = 0
+while nr != "q": 
+    nr = input("Wpisz nr Lini:\n")
+    if not routes.contains_NR(int(nr)):
+        continue
+    routes_list = routes.get_Nr(int(nr))
 # N3 - > ID NR 403 
-if True:
-    for route in routes._list:
+
+    for route in routes_list:
     # for route in routes_list:
         lat =  []
         long = []
@@ -30,7 +33,6 @@ if True:
             lat.append(stop._Y)
             pl.annotate(stop._name,(stop._X,stop._Y))    
         pl.plot(long,lat,"-")
-        #print(route.toString())
     pl.savefig("trasa.png")
 
 # stop, dist = stops.closestStop(18,50)
