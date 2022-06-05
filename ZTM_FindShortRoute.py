@@ -22,17 +22,17 @@ def CreateGraph(Paths,start,end):
  
 
 gstops = GroupedStops(stops)
-start = gstops.getByName("Orunia Górna")                        #stops.closestStop(x1,y1))
+start = gstops.getByName("Plac Wolności")                        #stops.closestStop(x1,y1))
 end = gstops.getByName("Osowa PKP")                          #stops.closestStop(x2,y2))
 
 
 tic = time()
-Paths = DFSsearch(start,end,3,gstops)
+Paths = DFSsearch(start,end,2,gstops)
 print(time()-tic)
 
 CreateGraph(Paths,start,end)
 tic = time()
-Paths = Asearch(start,end,3,gstops)
+Paths = Asearch(start,end,2,gstops)
 print(time()-tic)
 CreateGraph(Paths,start,end)
 
@@ -76,5 +76,5 @@ for route in Paths:
     print(length)
 
 
-#pl.show()
+pl.show()
 pass

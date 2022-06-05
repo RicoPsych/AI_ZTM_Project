@@ -31,6 +31,7 @@ def startSearch(start:GroupedStop,end:GroupedStop,limit:int,gstops: GroupedStops
         #if didnt find any routes raise limit
     if len(paths) == 0: 
         return startSearch(start,end,limit+1,gstops)
+    paths.sort(key= lambda route: GetLengthForSort(route,start,end,gstops))
     return paths
 
 def GetPath(paths, path, prev_route: Route, routes : list[Route], previous_stop : GroupedStop,end : GroupedStop, limit :int, gstops: GroupedStops):
@@ -90,3 +91,22 @@ def Heuristic(route: Route,prev_route: Route,prev_stop:GroupedStop,stop:GroupedS
     if any(x in rest_of_route for x in end._stops):
         x += -2000
     return  ((stop.distanceFrom(end) - prev_stop.distanceFrom(end))* length + x )
+
+def GetLengthForSort(route,start,end,gstops):
+    length= 0
+    prev_stop = start
+    for rt in route:
+        rt: Route
+        
+        if route.index(rt) != 0:
+            prev_stop = gstops.getCommonStops(prev_route,rt).pop()    
+        if route.index(rt) < len(route)-1:
+            next_stop = gstops.getCommonStops(rt,route[route.index(rt)+1]).pop()
+        else:
+            next_stop = end
+
+        length += rt.getLength(prev_stop._stops, next_stop._stops)
+
+        prev_route = rt
+    return length
+ 
