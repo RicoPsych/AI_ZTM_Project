@@ -7,14 +7,15 @@ from load.LoadData import stops
 
 
 gstops = GroupedStops(stops)
-start = gstops.getByName("Oliwa")                        #stops.closestStop(x1,y1))
-end = gstops.getByName("Karczemki")                          #stops.closestStop(x2,y2))
+start = gstops.getByName("Myśliwska")                        #stops.closestStop(x1,y1))
+end = gstops.getByName("Hucisko")                          #stops.closestStop(x2,y2))
 
 
 tic = time()
-Paths = DFSsearch(start,end,1,gstops)
+Paths = DFSsearch(start,end,2,gstops)
 print(time()-tic)
 CreateGraph(Paths,start,end,gstops)
+CreateGraph(Paths,start,end,gstops,graph_stops=True)
 
 tic = time()
 Paths = Asearch(start,end,1,gstops)
@@ -23,6 +24,6 @@ print(time()-tic)
 CreateGraph(Paths,start,end,gstops,graph_stops=False)
 CreateGraph(Paths,start,end,gstops,graph_stops=True)
 
-#Plot(Paths,start,end,gstops) 
+Plot(Paths,start,end,gstops) 
 
 pass

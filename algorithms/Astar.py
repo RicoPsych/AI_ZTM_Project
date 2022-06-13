@@ -79,9 +79,11 @@ def GetPath(paths, path, prev_route: Route, routes : list[Route], previous_stop 
 
 #exclude night buses
 def Exclude(route) -> bool:
+    """Exclude Some Routes"""
     return route._nr >= 400 and route._nr < 500
 
 def Heuristic(route: Route,prev_route: Route,prev_stop:GroupedStop,stop:GroupedStop,end:GroupedStop) -> float:
+    """Heuristic function"""
     rest_of_route = route.getRestOfRouteFromStop(stop._stops)
     
     length = prev_route.getLength(prev_stop._stops,stop._stops) # len(prev_route.getPartOfRoute(prev_stop._stops,stop._stops)) #
@@ -93,6 +95,7 @@ def Heuristic(route: Route,prev_route: Route,prev_stop:GroupedStop,stop:GroupedS
     return  ((stop.distanceFrom(end) - prev_stop.distanceFrom(end))* length + x )
 
 def GetLengthForSort(route,start,end,gstops):
+    """Get length of route for list.sort() function"""
     length= 0
     prev_stop = start
     for rt in route:

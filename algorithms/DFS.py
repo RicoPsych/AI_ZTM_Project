@@ -67,4 +67,5 @@ def GetPath(paths,path, prev_route, routes, end, limit, gstops: GroupedStops):
         GetPath(paths,path_c, route ,common_routes,end,limit,gstops)
 
 def Exclude(route) -> bool:
+    """Exclude Some Routes"""
     return route._nr >= 400 and route._nr < 500
