@@ -46,7 +46,7 @@ def GetPath(paths, path, prev_route: Route, routes : list[Route], previous_stop 
     """
     if len(path)>= limit:
         return
-    
+        
     #Heuristic   
     routes.sort(key=lambda route: Heuristic(route,prev_route , previous_stop ,gstops.getCommonStops(prev_route,route).pop(),end))
 

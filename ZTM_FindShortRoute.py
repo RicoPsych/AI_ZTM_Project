@@ -7,8 +7,8 @@ from load.LoadData import stops
 
 
 gstops = GroupedStops(stops)
-start = gstops.getByName("Myśliwska")                        #stops.closestStop(x1,y1))
-end = gstops.getByName("Hucisko")                          #stops.closestStop(x2,y2))
+start = gstops.getByName("Harfowa")                        #stops.closestStop(x1,y1))
+end = gstops.getByName("Wołkowyska")                          #stops.closestStop(x2,y2))
 
 
 tic = time()
